@@ -1,0 +1,52 @@
+{
+  "name": "@rn-production-toolkit/core",
+  "version": "0.1.0",
+  "description": "Core utilities for rn-production-toolkit: typed errors, retry, logging, and React Native adapters.",
+  "keywords": [
+    "react-native",
+    "utilities",
+    "retry",
+    "logger",
+    "production"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rinfotechhub-stack/rn-production-toolkit.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/rinfotechhub-stack/rn-production-toolkit#readme",
+  "bugs": {
+    "url": "https://github.com/rinfotechhub-stack/rn-production-toolkit/issues"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:consumers": "node tests/consumers/esm-consumer.mjs && node tests/consumers/cjs-consumer.cjs",
+    "lint": "eslint \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\" \"*.{json,js}\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\" \"*.{json,js}\"",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {}
+}

@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  quality:
+    name: Lint, typecheck, build, test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20, 22, 24]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint --workspaces --if-present
+
+      - name: Typecheck
+        run: npm run typecheck --workspaces --if-present
+
+      - name: Format check
+        run: npm run format:check --workspaces --if-present
+
+      - name: Build
+        run: npm run build --workspace @rn-production-toolkit/core
+
+      - name: Test (unit tests with coverage threshold)
+        run: npm run test --workspace @rn-production-toolkit/core -- --coverage --watchman=false
+
+      - name: Test package consumers (ESM and CJS)
+        run: npm run test:consumers
+
+      - name: Inspect package contents (dry-run)
+        working-directory: packages/core
+        run: npm pack --dry-run
+
+      - name: Install example dependencies
+        working-directory: examples/bare-react-native
+        run: npm install
+
+      - name: Typecheck example app
+        working-directory: examples/bare-react-native
+        run: npx tsc --noEmit
+
+      - name: Run example core demonstration
+        working-directory: examples/bare-react-native
+        run: npm run demo:core
+
+  secrets:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Secret scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

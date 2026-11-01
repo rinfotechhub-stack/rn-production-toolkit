@@ -1,0 +1,42 @@
+{
+  "name": "rn-production-toolkit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A small, reliable, typed collection of reusable React Native production utilities.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rinfotechhub-stack/rn-production-toolkit.git"
+  },
+  "homepage": "https://github.com/rinfotechhub-stack/rn-production-toolkit#readme",
+  "bugs": {
+    "url": "https://github.com/rinfotechhub-stack/rn-production-toolkit/issues"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "npm run build --workspace @rn-production-toolkit/core",
+    "test": "npm run test --workspaces --if-present",
+    "test:coverage": "npm run test:coverage --workspace @rn-production-toolkit/core",
+    "test:consumers": "npm run test:consumers --workspace @rn-production-toolkit/core",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "format": "prettier --write \"**/*.{ts,js,json,md,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,json,md,yml,yaml}\""
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^26.6.6",
+    "eslint": "^10.14.0",
+    "eslint-config-prettier": "^10.1.8",
+    "jest": "^30.5.2",
+    "prettier": "^3.9.10",
+    "ts-jest": "^29.4.15",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.1"
+  }
+}

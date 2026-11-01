@@ -1,0 +1,30 @@
+{
+  "name": "@rn-production-toolkit/example-bare-react-native",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Minimal bare React Native example app for rn-production-toolkit core.",
+  "dependencies": {
+    "@rn-production-toolkit/core": "file:../../packages/core",
+    "react": "^18.2.0",
+    "react-native": "^0.74.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@react-native/babel-preset": "^0.74.0",
+    "@react-native/metro-config": "^0.74.0",
+    "@react-native/typescript-config": "^0.74.0",
+    "@types/react": "^18.2.0",
+    "typescript": "^5.4.0"
+  },
+  "scripts": {
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "typecheck": "tsc --noEmit",
+    "demo:core": "node scripts/demonstrate-core.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
